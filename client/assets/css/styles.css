@@ -1,0 +1,854 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200..1000&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 2.5rem;
+
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: hsl(228, 85%, 63%);
+  --title-color: hsl(228, 18%, 16%);
+  --text-color: hsl(228, 8%, 56%);
+  --body-color: hsl(228, 100%, 99%);
+  --shadow-color: hsla(228, 80%, 4%, .1);
+  --add-color: hsl(212, 15%, 19%);
+  --add-color-hover: hsl(135, 96%, 32%);
+  --sub-color-hover: hsl(0, 95%, 39%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Nunito Sans", system-ui;
+  --normal-font-size: .938rem;
+  --smaller-font-size: .75rem;
+  --tiny-font-size: .75rem;
+  --font-logo: "Caveat", cursive;
+
+  /*========== Font weight ==========*/
+  --font-regular: 400;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1150px) {
+  :root {
+    --normal-font-size: 1rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  color: var(--text-color);
+  transition: background-color .4s;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  all: unset;
+}
+
+/*=============== VARIABLES DARK THEME ===============*/
+body.dark-theme {
+  --first-color: hsl(228, 70%, 63%);
+  --title-color: hsl(228, 18%, 96%);
+  --text-color: hsl(228, 12%, 61%);
+  --body-color: #293038;
+  --shadow-color: hsla(228, 80%, 4%, .3);
+  --add-color: #a38c65;
+}
+
+/*========== 
+	Color changes in some parts of 
+	the website, in dark theme
+==========*/
+.dark-theme .sidebar__content::-webkit-scrollbar {
+  background-color: hsl(228, 16%, 30%);
+}
+
+.dark-theme .sidebar__content::-webkit-scrollbar-thumb {
+  background-color:#a38c65;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  margin-inline: 1.5rem;
+}
+
+.main {
+  padding-top: 5rem;
+}
+
+/*=============== HEADER ===============*/
+/* Estilos gerais do header */
+.header {
+  position: fixed;
+  top: -3px;
+  left: 105px;
+  right: -2px;
+  z-index: var(--z-fixed);
+  margin: .75rem;
+}
+
+.header__title { /* TITULO "INVESTIDOR+" */
+  font-size: 35px; 
+  color: var(--title-color); 
+  margin-right: auto; 
+  font-family: var(--font-logo);
+}
+
+body.show-sidebar .header__title--visible { /* ENCONDER TITULO DA HEADER */
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Estilos do container do header */
+.header__container {
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--body-color);
+  box-shadow: 0 2px 24px var(--shadow-color);
+  display: flex;
+  align-items: center;
+  padding-inline: 1.5rem;
+  border-radius: 1rem;
+  transition: background-color .4s;
+  justify-content: space-between; /* Alinha os itens ao início (esquerda) */
+}
+
+.header__right-info {
+  display: flex; /* Alinha os elementos da direita horizontalmente */
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1; /* Permite que o container cresça para ocupar o espaço central */
+}
+
+.header__values {
+  display: flex; /* Alinha "VALOR APLICADO" e "VALOR TOTAL" horizontalmente */
+  align-items: center;
+  gap: 2rem; /* Espaçamento entre os blocos de valor */
+}
+
+.valor__aplicado {
+  display: flex;
+  align-items: center;
+  margin-right: 3rem; /* Espaço entre "VALOR APLICADO" e "VALOR TOTAL" */
+}
+
+.valor__aplicado .money__apl { /* ICONE VALOR APLICADO */
+  margin-right: 1rem;
+  font-size: 2rem;
+  color: var(--title-color);
+}
+
+.valor__aplicado .info-valor {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.valor__aplicado .title {
+  font-size: 0.8rem;
+  color: var(--text-color);
+}
+
+.valor__aplicado .value {
+  font-size: 1rem;
+  font-weight: var(--font-semi-bold);
+  color: var(--title-color);
+}
+
+.valor__total {
+  display: flex;
+  align-items: center;
+}
+
+.valor__total .money__total { /* ICONE VALOR TOTAL */
+  margin-right: 1rem;
+  font-size: 2rem;
+  color: var(--title-color);
+}
+
+.valor__total .info-valor-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.valor__total .title-total {
+  font-size: 0.8rem;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.valor__total .value-total {
+  font-size: 1rem;
+  font-weight: var(--font-semi-bold);
+  color: var(--title-color);
+  text-align: center;
+}
+
+.valor__aplicado .value,
+.valor__total .value-total { /* LINHA DOS VALORES */
+  position: relative; 
+  padding-bottom: 3px; 
+}
+
+.valor__aplicado .value::after,
+.valor__total .value-total::after { /* AINDA LINHA DOS VALORES */
+  content: '';
+  position: absolute;
+  left: 50%; 
+  bottom: 0;
+  width: 0; 
+  height: 2px;
+  background-color: var(--add-color);
+  transform: translateX(-50%); 
+  transform-origin: center; 
+  transition: width 0.5s ease-in-out; 
+}
+
+.valor__aplicado .value:hover::after,
+.valor__total .value-total:hover::after { /* MAIS LINHA DOS VALORES */
+  width: 100%; 
+}
+
+
+.header__controls { /* Estilos para o container dos ícones de adicionar e subtrair */
+  display: flex;
+  align-items: center;
+  gap: 2.5rem; /* Espaçamento entre os ícones */
+  margin-right: 1rem;
+}
+
+.header__right-info > div { /* Estilos para o div que contém os ícones de adicionar e subtrair */
+  display: flex;
+  align-items: center;
+  margin-left: 10rem; /* Espaço entre a logo e os ícones */
+}
+
+.header__logo { /* EDIÇÃO DO ICONE DO PERFIL */
+  position: relative;
+  width: 3.125rem;
+  height: 3.125rem;
+  background-color: #a38c65;
+  border-radius: 50%;
+  display: flex;
+  justify-items: center;
+}
+
+.header__logo img { /* EDIÇÃO DO IMAGEM DO PERFIL */
+  position: relative;
+  width: 3.125rem;
+  bottom: 0px;
+  border-radius: 50%;
+}
+
+.header__logo::before { /* ESTILO DO SUB TEXTO "SEU PERFIL" */
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0s ease-in-out;
+  z-index: 10; /* Aumentando o z-index */
+}
+
+.header__logo:hover::before { /* PARA PARECER O SUB TEXTO "SEU PERFIL" */
+  opacity: 1;
+  visibility: visible;
+}
+
+.header__add-icon,
+.header__sub-icon { /* EDIÇÃO DOS ESTILOS "+" E "-" */
+  position: relative; /* Para posicionar o tooltip */
+  width: 35px;
+  height: 35px;
+  background-color: var(--add-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: background-color 0.4s ease-in-out; /* Transição da cor de fundo */
+  cursor: pointer;
+}
+
+
+.header__add-icon i { /* EDIÇÃO GERAL DO "+" */
+  font-size: 1.5rem; /* TAMANHO DO "+" */
+  transition: transform 0.3s ease-in-out; /* VELICIDADE QUE O "+" RODA */
+}
+
+.header__add-icon:hover {
+  background: var(--add-color-hover); /* COR AO PASSSAR O MOUSE EM CIMA */
+}
+
+.header__add-icon:hover i { /* QUANTOS GRAUS O "+" RODA */
+  transform: rotate(90deg); 
+}
+
+.header__add-icon::before { /* SUB TEXTO DE ADICIONAR ATIVO */
+  content: attr(data-tooltip); 
+  position: absolute;
+  top: 120%; 
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0s ease-in-out;
+  z-index: 1; 
+}
+
+.header__add-icon:hover::before { /* SUB TEXTO DE ADICIONAR ATIVO */
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ========================================== EDIÇÃO ABA DE ADIÇÃO =========================================== */
+
+/* Estilos para o overlay (fundo escuro) */
+/* Estilos para o overlay (fundo escuro) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo preto com 40% de opacidade */
+    z-index: 1005; /* Garante que a aba fique sobre outros elementos */
+    display: none; /* Inicialmente escondido */
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Começa totalmente transparente */
+    transition: opacity 1s ease-in-out; /* Transição suave da opacidade */
+}
+
+.overlay.active {
+    display: flex; /* Torna o overlay visível */
+    opacity: 1; /* Torna o overlay totalmente visível com transição */
+}
+
+/* Estilos para o modal (a aba em si) */
+.modal {
+    background-color: var(--body-color);
+    padding: 20px;
+    border-radius: 1rem;
+    box-shadow: 0 2px 24px var(--shadow-color);
+    width: 20%; /* Ajuste a largura conforme necessário */
+    max-width: 500px; /* Largura máxima */
+    z-index: 1006; /* Garante que o modal fique acima do overlay */
+    opacity: 0; /* Começa totalmente transparente */
+    transform: translateY(-20px); /* Começa um pouco acima para o efeito de "cair" */
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Transição suave */
+}
+
+.modal.active {
+    opacity: 1; /* Torna o modal totalmente visível */
+    transform: translateY(0); /* Move para a posição final */
+}
+
+/* Estilos gerais dos grupos de formulário */
+.form__group {
+    margin-bottom: 15px;
+}
+
+.form__group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--title-color);
+    font-size: 0.9rem;
+}
+
+.form__group input[type="text"],
+.form__group input[type="date"],
+.form__group input[type="number"] { /* ESTILOS DOS CAMPOS*/
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: var(--title-color);
+    background-color: var(--body-color);
+}
+
+/* Layout para campos lado a lado */
+.form__row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 0px;
+}
+
+.form__row .form__group {
+    flex-grow: 1;
+}
+
+.valor-total { /* ESTILO DO "VALOR TOTAL" */
+    padding: 5px;
+    background-color: var(--body-color);
+    border-radius: 1rem;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: var(--title-color);
+    font-size: 1.1rem;
+}
+
+.modal__header { /* ESTILO DO CABEÇALHO DA ABA */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    position: relative;/* Cria um contexto de posicionamento para o botão de fechar */
+    color: var(--title-color);
+    /* REMOVE O PADDING-RIGHT */
+}
+
+.modal__title { /* TITULO ABA ADICIONAR */
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal__close { /* ESTILO DO "X" */
+    cursor: pointer;
+    position: absolute; /* Posiciona o "x" dentro do cabeçalho */
+    top: -30px; /* Alinha ao topo da quina */
+    right: -30px; /* Alinha à direita da quina */
+    width: 35px; /* Define a largura do círculo */
+    height: 35px; /* Define a altura do círculo */
+    border-radius: 50%; /* Cria o círculo */
+    background-color: #a38c65;
+    color: #ffffff; /* Cor do "x" */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem; /* Reduz o tamanho do "x" para caber no círculo */
+    padding: 5px; /* Adiciona um pequeno padding interno para melhor aparência */
+    transition: background-color 0.7s ease, color 0.7s ease;
+}
+
+.modal__close:hover { /* EFEITO DO "X" AO PASSAR O MOUSE */
+    background-color: #000000;
+    color: #ffffff; 
+}
+
+.modal__actions { /* ESTILO DO CONTAINER DOS BOTÕES "CANCELAR" E "SALVAR" */
+    display: flex;
+    gap: 4rem;
+    justify-content: center; 
+}
+
+.modal__actions .button { /* ESTILO BOTÕES "CANCELAR" E "SALVAR" */
+    padding: 10px 20px;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.7s ease, color 0.7s ease;
+}
+
+.modal__actions .cancelar { /* ESTILO DO BOTÃO "CANCELAR" */
+    background-color: #f0f0f0;
+    color: #000000;
+}
+
+.modal__actions .salvar { /* ESTILO DO BOTÃO "SALVAR" */
+    background-color: #000;
+    color:#a38c65;
+}
+
+.modal__actions .cancelar:hover { /* EFEITO DO BOTÃO "CANCELAR" AO PASSAR O MOUSE */
+    background-color: #ddd;
+}
+
+.modal__actions .salvar:hover { /* EFEITO DO BOTÃO "SALVAR" AO PASSAR O MOUSE */
+    background-color: #000000; 
+    color: #fff; 
+}
+
+/* ========================================== EDIÇÃO ABA DE REMOÇÃO =========================================== */
+
+.blocoAcoes { /* ESTILO DO BLOCO DE ATIVOS */
+    margin: -22px;
+    padding: 30px;
+    margin-top: 347px;
+    box-shadow: 0 2px 24px var(--shadow-color);
+    border-radius: 1rem;
+    background-color: var(--body-color);
+    transition: opacity 3s ease-in-out, transform 3s ease-in-out;
+}
+
+.blocoAcoes h3 { /* TITULO DO BLOCO DE AÇÕES */
+    text-align: left;
+    margin-bottom: 20px;
+    color: var(--title-color);
+    text-transform: uppercase;
+}
+
+#tabela-ativos { /* ESTILO DA TABELA */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    transition: opacity 3s ease-in-out, transform 3s ease-in-out;
+}
+
+#tabela-ativos th, #tabela-ativos td {
+    border: 1px solid var(--title-color);
+    padding: 8px;
+    text-align: left;
+}
+
+#tabela-ativos th {
+    background-color: var(--add-color);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#tabela-ativos tbody tr:nth-child(even) { 
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    transition: opacity 3s ease-in-out, transform 3s ease-in-out;
+}
+
+.header__sub-icon i { /* EDIÇÃO GERAL DO "-" */
+  font-size: 1.4rem; /* TAMANHO DO "-" */
+}
+
+.header__sub-icon:hover { /* COR AO PASSAR O MOUSE POR CIMA "-" */
+  background: var(--sub-color-hover); 
+}
+
+.header__sub-icon::before { /* SUB TEXTO DE REMOVER ATIVO */
+  content: attr(data-tooltip); 
+  position: absolute;
+  top: 120%; 
+  left: 50%; 
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0s ease-in-out;
+  z-index: 1; 
+}
+
+.header__sub-icon:hover::before { /* SUB TEXTO DE REMOVER ATIVO */
+  opacity: 1;
+  visibility: visible;
+}
+
+.header__toggle { /* 3 BARRAS DO MENU */
+  font-size: 1.5rem;
+  color: var(--title-color);
+  cursor: pointer;
+  margin-top: -0.5rem; /* AJUSTE DE ALTURA */
+}
+
+/*======================= ROSCA =====================*/
+
+.rosca {
+  position: fixed;   
+  top: 107px;            
+  right: 1rem;
+  background:var(--body-color);
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 24px var(--shadow-color);
+  width: 340px;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  text-align: left;
+  color: var(--title-color);
+}
+
+canvas {
+  padding: 1rem;
+  width: 100% !important;
+  height: auto !important;
+}
+
+
+/*======================= EVOLUÇÃO PATRIMONIAL =====================*/
+
+
+
+/*=============== SIDEBAR ===============*/
+.sidebar {
+  position: fixed;
+  left: -120%;
+  top: 0;
+  bottom: 0;
+  z-index: var(--z-fixed);
+  width: 288px;
+  background-color: var(--body-color);
+  box-shadow: 2px 0 24px var(--shadow-color);
+  padding-block: 1.5rem;
+  margin: .75rem;
+  border-radius: 1rem;
+  transition: left .4s, background-color .4s, width .4s;
+}
+
+.sidebar__container, 
+.sidebar__content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.5rem;
+}
+
+.sidebar__container {
+  height: 100%;
+  overflow: hidden;
+}
+
+.sidebar__user {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  align-items: center;
+  column-gap: 1rem;
+  padding-left: 2rem;
+}
+
+.sidebar__info h3 {
+  font-size: 35px;
+  color: var(--title-color);
+  transition: color .4s, opacity .4s;
+  font-family: var(--font-logo);
+  margin-top: -0.6rem; 
+}
+
+.sidebar__info span {
+  font-size: var(--smaller-font-size);
+}
+
+.sidebar__content {
+  overflow: hidden auto;
+}
+
+.sidebar__content::-webkit-scrollbar {
+  width: .3rem;
+  background-color: hsl(228, 8%, 85%);
+}
+
+.sidebar__content::-webkit-scrollbar-thumb {
+  background-color: #a38c65;
+}
+
+.sidebar__title {
+  width: max-content;
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-semi-bold);
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+  color: #a38c65;
+}
+
+.sidebar__list, 
+.sidebar__actions {
+  display: grid;
+  row-gap: 1.8rem;
+}
+
+.sidebar__link {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  align-items: center;
+  column-gap: 1rem;
+  color: var(--text-color);
+  padding-left: 2rem;
+  transition: color .4s, opacity .4s;
+}
+
+.sidebar__link i {
+  font-size: 1.25rem;
+}
+
+.sidebar__link span {
+  font-weight: var(--font-semi-bold);
+}
+
+.sidebar__link:hover {
+  color: #a38c65;
+}
+
+.sidebar__actions {
+  margin-top: auto;
+}
+
+.sidebar__actions button {
+  cursor: pointer;
+}
+
+.sidebar__theme {
+  width: 100%;
+  font-size: 1.25rem;
+}
+
+.sidebar__theme span {
+  font-size: var(--normal-font-size);
+  font-family: var(--body-font);
+}
+
+/* Show sidebar */
+.show-sidebar {
+  left: 0;
+}
+
+/* Active link */
+.active-link {
+  color: #a38c65;
+}
+
+.active-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 22px;
+  background-color: #a38c65;
+}
+
+/* ================================SIDEBAR EXPANDIDA========================== */
+@media screen and (min-width: 1150px) {
+  .header {
+    margin: 1rem;
+    padding-left: -200px;
+    transition: padding .4s;
+  }
+  .header__container {
+    height: calc(var(--header-height) + 2rem);
+    padding-inline: 2rem;
+    display: flex; /* Garante que os filhos estejam em linha */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between; /* Distribui o espaço */
+  }
+  .header__logo {
+    order: 1;
+  }
+
+  .header__title {
+    /* ... outros estilos ... */
+    opacity: 1; /* Garante que seja visível por padrão */
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  }
+  
+  body.sidebar-expanded .header .header__container .header__title {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .sidebar {
+    left: 0; /* Sidebar sempre visível */
+    width: 90px; /* Começa minimizada */
+    /* Outros estilos da sidebar */
+  }
+
+  .sidebar__info,
+  .sidebar__link span {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    transform: translateY(0px);
+  }
+
+  .sidebar__user {
+    padding-left: 2rem;
+  }
+
+  .sidebar__title {
+    padding-left: 0;
+    margin-inline: auto;
+  }
+
+  /* Quando expandida */
+  .sidebar.show-sidebar { /* Aplica estilos quando a classe show-sidebar está na sidebar */
+    width: 260px;
+  }
+
+  .sidebar.show-sidebar .sidebar__info,
+  .sidebar.show-sidebar .sidebar__link span {
+    opacity: 1;
+    transition: opacity .5s ease-in-out, transform .5s ease-in-out;
+    transform: translateY(0);
+  }
+
+  .sidebar.show-sidebar .sidebar__user {
+    padding-left: 2rem;
+  }
+
+  .sidebar.show-sidebar .sidebar__title {
+    padding-left: 0;
+  }
+
+  /* Add padding left */
+  .left-pd {
+    padding-left: 170px; 
+  }
+  .left-pd #tabela-ativos {
+    width: calc(100% - 0px); 
+  }
+  .main.container {
+  position: relative;
+  padding-left: 0;
+  transition: padding-left 0.4s ease-in-out;
+}
+  .main.container.left-pd .blocoAcoes {
+    margin: -22px;
+    padding: 30px;
+    margin-top: 370px;
+    box-shadow: 0 2px 24px var(--shadow-color);
+    border-radius: 1rem;
+    background-color: var(--body-color);
+    width: calc(100% - 0px - -44px); 
+  }
+}
+  
+
